@@ -15,12 +15,16 @@ export const applyWebStyles = (pieChart, conicGradient, pieSize) => {
   pieChart.style.justifyContent = 'center';
   pieChart.style.alignItems = 'center';
   pieChart.style.position = 'relative';
-  pieChart.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+  pieChart.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
   pieChart.style.transform = 'rotate(-90deg)'; // Rotacionar para iniciar do topo
   
   // Garantir que o conteúdo interno não rotacione
   const innerCircle = pieChart.querySelector('div');
   if (innerCircle) {
     innerCircle.style.transform = 'rotate(90deg)'; // Contrarrotar o círculo interno
+    innerCircle.style.boxShadow = 'inset 0 2px 8px rgba(0,0,0,0.1)';
   }
+  
+  // Adicionar transição para animação suave
+  pieChart.style.transition = 'transform 0.8s ease-out, opacity 0.6s ease-in';
 };
