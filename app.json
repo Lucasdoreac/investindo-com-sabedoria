@@ -26,6 +26,11 @@
       "bundler": "metro",
       "output": "static",
       "publicPath": "/investindo-com-sabedoria/"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "investindo-com-sabedoria"
+      }
     }
   }
 }
