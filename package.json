@@ -1,12 +1,16 @@
 {
-  "name": "luaraujo-livro-app",
+  "name": "investindo-com-sabedoria",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "predeploy": "expo export:web",
+    "deploy": "gh-pages -d web-build",
+    "deploy-manual": "npm run predeploy && npm run deploy",
+    "build": "expo export:web"
   },
   "dependencies": {
     "expo": "~52.0.46",
@@ -22,12 +26,31 @@
     "react-native-web": "~0.19.13",
     "@expo/metro-runtime": "~4.0.1",
     "expo-dev-client": "~5.0.20",
-    "react-native-svg": "^12.1.1",
+    "react-native-svg": "^13.4.0",
     "react-native-svg-charts": "^5.4.0",
     "@react-native-community/slider": "4.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "gh-pages": "^6.0.0"
   },
-  "private": true
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lucasdoreac/investindo-com-sabedoria.git"
+  },
+  "keywords": [
+    "finanças",
+    "investimentos",
+    "educação",
+    "financeira",
+    "react-native",
+    "expo"
+  ],
+  "author": "Lucas Dórea Cardoso",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lucasdoreac/investindo-com-sabedoria/issues"
+  },
+  "homepage": "https://lucasdoreac.github.io/investindo-com-sabedoria"
 }
