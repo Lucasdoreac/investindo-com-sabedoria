@@ -6,6 +6,13 @@ Um aplicativo educacional sobre finanças pessoais e investimentos para iniciant
 ![Plataforma](https://img.shields.io/badge/plataforma-iOS%20%7C%20Android-green)
 ![Licença](https://img.shields.io/badge/licença-MIT-orange)
 
+## 🌐 Acesse o Aplicativo Online
+
+**Experimente agora a versão web do aplicativo visitando:**
+[https://lucasdoreac.github.io/investindo-com-sabedoria/](https://lucasdoreac.github.io/investindo-com-sabedoria/)
+
+> 💡 **Comece sua jornada financeira hoje mesmo!** Acesse o app, faça simulações e descubra como pequenos investimentos mensais podem transformar seu futuro financeiro.
+
 ## 📱 Visão Geral
 
 Este aplicativo tem como objetivo desmistificar o conhecimento financeiro e transformar o conteúdo de um ebook educativo em uma experiência interativa, com calculadoras, simuladores, quizzes e ferramentas visuais que auxiliam no aprendizado prático sobre investimentos.
