@@ -7,10 +7,10 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "predeploy": "expo export:web --no-minify",
+    "predeploy": "expo export:web",
     "deploy": "gh-pages -d web-build",
     "deploy-manual": "npm run predeploy && npm run deploy",
-    "build": "expo export:web --no-minify"
+    "build": "expo export:web"
   },
   "dependencies": {
     "expo": "~52.0.46",
