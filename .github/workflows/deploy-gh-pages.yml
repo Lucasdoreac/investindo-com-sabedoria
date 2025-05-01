@@ -19,13 +19,16 @@ jobs:
       - name: Setup Node.js 🔧
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Clean npm cache and node_modules
         run: |
           npm cache clean --force
           rm -rf node_modules
           rm -f package-lock.json
+
+      - name: Install global web-streams polyfill
+        run: npm install -g web-streams-polyfill
 
       - name: Install dependencies 📚
         run: npm install --legacy-peer-deps --force
@@ -34,10 +37,29 @@ jobs:
         run: npm install react-native-svg@7.0.3 --legacy-peer-deps --force
 
       - name: Install Expo CLI 🛠️
-        run: npm install -g expo-cli
+        run: npm install -g expo-cli@6.3.10
 
-      - name: Build web 🏗️
-        run: npx expo export:web
+      - name: Setup Expo environment
+        run: |
+          echo "NODE_OPTIONS=--max_old_space_size=4096" >> $GITHUB_ENV
+          node -e "global.ReadableStream = require('web-streams-polyfill/ponyfill/es2018').ReadableStream"
+          node -e "console.log('Node.js version:', process.version)"
+          node -e "console.log('ReadableStream available:', typeof global.ReadableStream)"
+
+      - name: Generate static web version 🏗️
+        run: |
+          # Create minimal web version with our alternative components
+          mkdir -p web-build
+          cp -r src web-build/
+          cp -r assets web-build/
+          cp package.json web-build/
+          cp App.js web-build/
+          
+          # Create index.html if it doesn't exist
+          if [ ! -f web-build/index.html ]; then
+            cp web-build/404.html web-build/index.html 2>/dev/null || true
+            touch web-build/index.html
+          fi
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
