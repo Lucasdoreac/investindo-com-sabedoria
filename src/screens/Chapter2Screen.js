@@ -13,7 +13,10 @@ import { COLORS, globalStyles } from '../styles/globalStyles';
 const Chapter2Screen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView 
+        contentContainerStyle={{paddingBottom: 50}}
+        style={{flex: 1, width: '100%'}}
+      >
         <View style={styles.headerContainer}>
           <Text style={styles.headerTitle}>Capítulo 2</Text>
           <Text style={styles.headerSubtitle}>Ativos Financeiros - Fundamentos</Text>
@@ -139,7 +142,7 @@ const Chapter2Screen = ({ navigation }) => {
               style={[styles.navButton, styles.nextButton]}
               onPress={() => navigation.navigate('Chapter3')}
             >
-              <Text style={styles.navButtonText}>Capítulo 3 →</Text>
+              <Text style={styles.nextButtonText}>Capítulo 3 →</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -303,6 +306,10 @@ const styles = StyleSheet.create({
   navButtonText: {
     fontWeight: 'bold',
     color: COLORS.primaryDark,
+  },
+  nextButtonText: {
+    fontWeight: 'bold',
+    color: COLORS.white,
   },
 });
 

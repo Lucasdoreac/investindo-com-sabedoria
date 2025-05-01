@@ -13,7 +13,10 @@ import CompoundInterestCalculator from '../components/CompoundInterestCalculator
 const Chapter1Screen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView 
+        contentContainerStyle={{paddingBottom: 50}}
+        style={{flex: 1, width: '100%'}}
+      >
         <View style={styles.headerContainer}>
           <Text style={styles.headerTitle}>Capítulo 1</Text>
           <Text style={styles.headerSubtitle}>A Importância de Investir aos Poucos</Text>

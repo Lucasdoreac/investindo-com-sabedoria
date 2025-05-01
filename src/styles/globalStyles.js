@@ -1,4 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
+
+// Estilos específicos para versão web
+if (Platform.OS === 'web') {
+  // Aplica estilos globais ao documento HTML
+  document.body.style.overflow = 'auto';
+  document.body.style.height = '100%';
+  document.body.style.margin = '0';
+  document.documentElement.style.height = '100%';
+}
 
 // Paleta de cores conforme especificado no Prompt Master
 export const COLORS = {

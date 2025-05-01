@@ -64,7 +64,7 @@ const CompoundInterestCalculator = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingBottom: 50}}>
         <View style={styles.card}>
           <Text style={styles.title}>💰 Calculadora de Juros Compostos</Text>
           <Text style={styles.description}>

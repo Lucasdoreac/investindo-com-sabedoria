@@ -13,7 +13,10 @@ import { COLORS } from '../styles/globalStyles';
 const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView 
+        contentContainerStyle={{paddingBottom: 50}}
+        style={{flex: 1, width: '100%'}}
+      >
         <View style={styles.headerContainer}>
           <Text style={styles.title}>Investindo com Sabedoria</Text>
           <Text style={styles.subtitle}>Guia Prático para Iniciantes</Text>
@@ -50,7 +53,10 @@ const HomeScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.chapterCard}>
+        <TouchableOpacity 
+          style={styles.chapterCard}
+          onPress={() => navigation.navigate('Chapter3')}
+        >
           <Text style={styles.chapterNumber}>Capítulo 3</Text>
           <Text style={styles.chapterTitle}>Conhecendo Seu Perfil de Investidor</Text>
           <Text style={styles.chapterDescription}>
@@ -58,7 +64,10 @@ const HomeScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.chapterCard}>
+        <TouchableOpacity 
+          style={styles.chapterCard}
+          onPress={() => navigation.navigate('Chapter4')}
+        >
           <Text style={styles.chapterNumber}>Capítulo 4</Text>
           <Text style={styles.chapterTitle}>Renda Fixa - O Ponto de Partida</Text>
           <Text style={styles.chapterDescription}>
@@ -66,7 +75,10 @@ const HomeScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.chapterCard}>
+        <TouchableOpacity 
+          style={styles.chapterCard}
+          onPress={() => navigation.navigate('Chapter5')}
+        >
           <Text style={styles.chapterNumber}>Capítulo 5</Text>
           <Text style={styles.chapterTitle}>Primeiros Passos em Renda Variável</Text>
           <Text style={styles.chapterDescription}>
