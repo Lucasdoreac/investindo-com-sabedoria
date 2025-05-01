@@ -5,120 +5,1313 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Investindo com Sabedoria: Guia Prático para Iniciantes</title>
   <style>
+    /* Cores da identidade visual */
+    :root {
+      --azul-claro: #b4e0e8;
+      --azul-marinho: #2c3e50;
+      --branco: #ffffff;
+      --cinza-claro: #f8f9fa;
+      --cinza-medio: #e9ecef;
+      --verde-sucesso: #28a745;
+      --laranja-alerta: #fd7e14;
+      --vermelho-erro: #dc3545;
+    }
+    
+    /* Estilos Globais */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
-      color: #2c3e50;
-      max-width: 800px;
+      color: var(--azul-marinho);
+      background-color: var(--cinza-claro);
+      overflow-x: hidden;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 20px;
-      background-color: #f8f9fa;
+      padding: 0 20px;
     }
+    
+    /* Cabeçalho e Navegação */
     header {
-      background-color: #b4e0e8;
-      color: #2c3e50;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 30px;
-      text-align: center;
+      background-color: var(--azul-marinho);
+      color: var(--branco);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-    h1 {
-      margin: 0;
-      font-size: 2.5em;
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    h2 {
-      border-bottom: 2px solid #b4e0e8;
-      padding-bottom: 10px;
-      margin-top: 40px;
+    
+    .logo h1 {
+      font-size: 1.5rem;
+      letter-spacing: 1px;
     }
-    .feature {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    
+    .logo span {
+      font-weight: 300;
+      font-size: 1rem;
     }
-    .cta-button {
-      display: inline-block;
-      background-color: #2c3e50;
-      color: white;
-      padding: 12px 24px;
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    
+    nav li {
+      margin-left: 1.5rem;
+    }
+    
+    nav a {
+      color: var(--branco);
       text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    nav a:hover {
+      color: var(--azul-claro);
+    }
+    
+    /* Layout do App */
+    .app-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      min-height: calc(100vh - 60px);
+      background-color: var(--branco);
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      margin: 20px auto;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    /* Sidebar para capítulos */
+    .sidebar {
+      background-color: var(--azul-claro);
+      padding: 2rem 0;
+    }
+    
+    .chapter-list {
+      list-style: none;
+    }
+    
+    .chapter-list li {
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      border-left: 4px solid transparent;
+      transition: all 0.3s;
+    }
+    
+    .chapter-list li:hover, .chapter-list li.active {
+      background-color: rgba(255,255,255,0.3);
+      border-left-color: var(--azul-marinho);
+    }
+    
+    .chapter-list .chapter-icon {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+    
+    /* Conteúdo principal */
+    .content {
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    
+    .chapter {
+      display: none;
+    }
+    
+    .chapter.active {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .chapter h2 {
+      font-size: 2rem;
+      color: var(--azul-marinho);
+      margin-bottom: 1.5rem;
+      border-bottom: 3px solid var(--azul-claro);
+      padding-bottom: 0.5rem;
+    }
+    
+    .chapter p {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+    
+    /* Componentes interativos */
+    .interactive-component {
+      background-color: var(--cinza-medio);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .interactive-component h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--azul-marinho);
+    }
+    
+    /* Calculadora de juros compostos */
+    .calculator-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .input-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .input-group label {
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .input-group input {
+      padding: 0.8rem;
+      border: 1px solid #ddd;
       border-radius: 4px;
-      font-weight: bold;
-      margin-top: 20px;
+      font-size: 1rem;
     }
-    .cta-button:hover {
-      background-color: #1a252f;
+    
+    button {
+      background-color: var(--azul-marinho);
+      color: var(--branco);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: background-color 0.3s;
     }
-    footer {
-      margin-top: 50px;
-      text-align: center;
-      color: #6c757d;
-      font-size: 0.9em;
+    
+    button:hover {
+      background-color: #1a2530;
+    }
+    
+    .calculator-result {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background-color: var(--branco);
+      border-radius: 4px;
+      border-left: 4px solid var(--verde-sucesso);
+    }
+    
+    /* Quiz de perfil de investidor */
+    .quiz-question {
+      margin-bottom: 2rem;
+    }
+    
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem;
+      background-color: var(--branco);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .quiz-option:hover {
+      background-color: #e9f5f8;
+    }
+    
+    .quiz-option input {
+      margin-right: 10px;
+    }
+    
+    .quiz-result {
+      display: none;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background-color: #e9f5f8;
+      border-radius: 8px;
+    }
+    
+    /* Visualizador de crescimento */
+    .growth-chart {
+      width: 100%;
+      height: 300px;
+      margin: 2rem 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    /* Ajustador de risco-retorno-liquidez */
+    .risk-return-adjuster {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .slider-container {
+      width: 100%;
+    }
+    
+    .slider-container label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .slider-container input[type="range"] {
+      width: 100%;
+    }
+    
+    .triangle-visualization {
+      margin-top: 2rem;
+      height: 300px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .app-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+      }
+      
+      .show-sidebar .sidebar {
+        display: block;
+      }
+      
+      .mobile-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: var(--branco);
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (min-width: 769px) {
+      .mobile-toggle {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>INVESTINDO COM SABEDORIA</h1>
-    <p>Guia Prático para Iniciantes</p>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>INVESTINDO COM SABEDORIA <span>Guia Prático para Iniciantes</span></h1>
+      </div>
+      <button class="mobile-toggle">☰</button>
+      <nav>
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#ferramentas">Ferramentas</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h2>Bem-vindo ao Seu Futuro Financeiro</h2>
-      <p>
-        Este aplicativo interativo transforma o conhecimento financeiro em uma experiência
-        prática e acessível, permitindo que você comece sua jornada de investimentos
-        com apenas R$30 por mês.
-      </p>
-    </section>
+  <div class="container">
+    <div class="app-container">
+      <aside class="sidebar">
+        <ul class="chapter-list">
+          <li class="active" data-chapter="intro">
+            <span class="chapter-icon">📚</span> Introdução
+          </li>
+          <li data-chapter="chapter1">
+            <span class="chapter-icon">💰</span> A Importância de Investir aos Poucos
+          </li>
+          <li data-chapter="chapter2">
+            <span class="chapter-icon">📊</span> Ativos Financeiros - Fundamentos
+          </li>
+          <li data-chapter="chapter3">
+            <span class="chapter-icon">🧠</span> Seu Perfil de Investidor
+          </li>
+          <li data-chapter="chapter4">
+            <span class="chapter-icon">🏦</span> Renda Fixa - O Ponto de Partida
+          </li>
+          <li data-chapter="chapter5">
+            <span class="chapter-icon">📈</span> Primeiros Passos em Renda Variável
+          </li>
+        </ul>
+      </aside>
+      
+      <main class="content">
+        <!-- Introdução -->
+        <section id="intro" class="chapter active">
+          <h2>Desmistificando o Conhecimento Financeiro</h2>
+          <p>Bem-vindo ao <strong>Investindo com Sabedoria</strong>, seu guia interativo para iniciar sua jornada no mundo dos investimentos!</p>
+          <p>A educação financeira não precisa ser complicada ou exclusiva para especialistas. Este guia foi criado para tornar o conhecimento sobre investimentos acessível a todos, especialmente para quem está começando.</p>
+          <p>Através deste aplicativo interativo, você aprenderá:</p>
+          <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+            <li>Como começar a investir com apenas <strong>R$30 por mês</strong></li>
+            <li>O poder transformador dos <strong>juros compostos</strong> para seu patrimônio</li>
+            <li>Como identificar seu <strong>perfil de investidor</strong> e escolher investimentos adequados</li>
+            <li>Os diferentes tipos de <strong>ativos financeiros</strong> disponíveis no mercado</li>
+            <li>Estratégias para <strong>investir com consistência</strong> e construir riqueza a longo prazo</li>
+          </ul>
+          
+          <div class="interactive-component">
+            <h3>📊 Avance para conhecer as ferramentas interativas:</h3>
+            <p>Este aplicativo conta com calculadoras, simuladores, questionários e visualizadores para tornar seu aprendizado mais prático e dinâmico.</p>
+            <p>Navegue pelo menu à esquerda para explorar os capítulos e suas ferramentas.</p>
+            <button id="tour-button">Fazer um tour rápido</button>
+          </div>
+        </section>
+        
+        <!-- Capítulo 1 -->
+        <section id="chapter1" class="chapter">
+          <h2>A Importância de Investir aos Poucos</h2>
+          <p>Um dos maiores mitos sobre investimentos é que você precisa de muito dinheiro para começar. A verdade é que <strong>pequenos valores investidos regularmente</strong> podem se transformar em um patrimônio expressivo ao longo do tempo.</p>
+          <p>Começar com apenas R$30 por mês pode parecer insignificante, mas graças ao <strong>poder dos juros compostos</strong> - que Einstein chamou de "a oitava maravilha do mundo" - essa quantia pode crescer substancialmente.</p>
+          
+          <div class="interactive-component">
+            <h3>💰 Calculadora de Juros Compostos</h3>
+            <p>Veja como pequenos investimentos mensais podem se transformar ao longo do tempo:</p>
+            
+            <div class="calculator-inputs">
+              <div class="input-group">
+                <label for="initial-investment">Investimento Inicial (R$)</label>
+                <input type="number" id="initial-investment" value="0" min="0">
+              </div>
+              
+              <div class="input-group">
+                <label for="monthly-contribution">Aporte Mensal (R$)</label>
+                <input type="number" id="monthly-contribution" value="30" min="0">
+              </div>
+              
+              <div class="input-group">
+                <label for="interest-rate">Taxa de Juros Anual (%)</label>
+                <input type="number" id="interest-rate" value="10" min="0" step="0.1">
+              </div>
+              
+              <div class="input-group">
+                <label for="time-period">Período (anos)</label>
+                <input type="number" id="time-period" value="20" min="1" max="50">
+              </div>
+            </div>
+            
+            <button id="calculate-button">Calcular</button>
+            
+            <div id="calculator-result" class="calculator-result">
+              <p><strong>Resultado:</strong> Ao investir R$30 por mês durante 20 anos, com uma taxa de 10% ao ano, você terá aproximadamente <strong>R$22.656,54</strong>.</p>
+            </div>
+            
+            <div class="growth-chart" id="growth-chart">
+              <!-- Aqui será renderizado o gráfico via JavaScript -->
+            </div>
+          </div>
+          
+          <h3>A Automatização como Aliada</h3>
+          <p>Um dos segredos para o sucesso nos investimentos é a <strong>consistência</strong>. Automatizar seus investimentos mensais elimina a necessidade de disciplina constante e evita que você deixe de investir por esquecimento ou por gastar o dinheiro com outras coisas.</p>
+          <p>Pense na automatização como um <strong>"pagamento para seu futuro"</strong> - assim como você paga suas contas mensais, você também deve "pagar a si mesmo" como prioridade.</p>
+        </section>
+        
+        <!-- Capítulo 2 -->
+        <section id="chapter2" class="chapter">
+          <h2>Ativos Financeiros - Fundamentos</h2>
+          <p>Os ativos financeiros são investimentos que você adquire com a expectativa de obter rendimentos futuros. Diferente de bens como carros ou eletrônicos, que perdem valor com o tempo, os ativos financeiros têm o <strong>potencial de gerar renda</strong> e valorização.</p>
+          
+          <h3>Principais Categorias de Ativos Financeiros</h3>
+          <p>Existem diversos tipos de ativos financeiros, cada um com características de risco, retorno e liquidez específicas:</p>
+          
+          <div class="interactive-component">
+            <h3>📊 Comparativo de Ativos Financeiros</h3>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+              <thead>
+                <tr style="background-color: var(--azul-claro);">
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Tipo de Ativo</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Risco</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Retorno Potencial</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Liquidez</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>Poupança</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Muito Baixo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Muito Baixo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Alta</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>Tesouro Direto</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Baixo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Médio-Baixo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Média-Alta</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>CDBs</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Baixo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Médio-Baixo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Média</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>Fundos Imobiliários</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Médio</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Médio</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Média-Alta</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>Ações</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Alto</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Alto</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Alta</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>Criptomoedas</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Muito Alto</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Muito Alto</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Média-Alta</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <h3>Renda Passiva</h3>
+          <p>Um dos conceitos mais importantes no mundo dos investimentos é o da <strong>renda passiva</strong> - dinheiro que você recebe regularmente sem precisar trabalhar ativamente por ele. Exemplos incluem juros, dividendos e aluguéis.</p>
+          <p>Construir fontes de renda passiva deve ser um dos objetivos da sua estratégia de investimentos, pois ela proporciona <strong>liberdade financeira</strong> no longo prazo.</p>
+        </section>
+        
+        <!-- Capítulo 3 -->
+        <section id="chapter3" class="chapter">
+          <h2>Conhecendo Seu Perfil de Investidor</h2>
+          <p>Antes de escolher onde investir seu dinheiro, é fundamental entender seu <strong>perfil de investidor</strong>. Ele irá determinar quais ativos são mais adequados às suas características pessoais, objetivos e tolerância ao risco.</p>
+          
+          <div class="interactive-component">
+            <h3>🧠 Quiz de Perfil de Investidor</h3>
+            <p>Responda às perguntas abaixo para descobrir seu perfil de investidor:</p>
+            
+            <div class="quiz-question">
+              <p><strong>1. Quando você planeja começar a resgatar seus investimentos?</strong></p>
+              <div class="quiz-options">
+                <label class="quiz-option">
+                  <input type="radio" name="timeframe" value="1"> Menos de 1 ano
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="timeframe" value="2"> Entre 1 e 3 anos
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="timeframe" value="3"> Entre 3 e 5 anos
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="timeframe" value="4"> Entre 5 e 10 anos
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="timeframe" value="5"> Mais de 10 anos
+                </label>
+              </div>
+            </div>
+            
+            <div class="quiz-question">
+              <p><strong>2. O que você faria se seus investimentos caíssem 20% em um mês?</strong></p>
+              <div class="quiz-options">
+                <label class="quiz-option">
+                  <input type="radio" name="reaction" value="1"> Venderia tudo imediatamente para evitar perdas maiores
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="reaction" value="2"> Venderia parte dos investimentos
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="reaction" value="3"> Não faria nada, esperaria para ver o que acontece
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="reaction" value="4"> Compraria um pouco mais, aproveitando os preços mais baixos
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="reaction" value="5"> Compraria muito mais, vendo uma grande oportunidade
+                </label>
+              </div>
+            </div>
+            
+            <div class="quiz-question">
+              <p><strong>3. Qual afirmação melhor descreve sua visão sobre investimentos?</strong></p>
+              <div class="quiz-options">
+                <label class="quiz-option">
+                  <input type="radio" name="vision" value="1"> Prefiro investimentos que me deem segurança, mesmo com retornos menores
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="vision" value="3"> Busco um equilíbrio entre segurança e retorno
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="vision" value="5"> Prefiro buscar os maiores retornos possíveis, mesmo com riscos elevados
+                </label>
+              </div>
+            </div>
+            
+            <button id="quiz-submit">Ver Meu Perfil</button>
+            
+            <div id="quiz-result" class="quiz-result">
+              <h3>Seu Perfil de Investidor:</h3>
+              <p id="profile-result"><strong>Perfil Moderado</strong></p>
+              <p id="profile-description">Você busca equilíbrio entre segurança e rentabilidade. Tolera alguma oscilação em seus investimentos, visando retornos médios no longo prazo.</p>
+              <h4>Investimentos recomendados para seu perfil:</h4>
+              <ul id="recommended-investments">
+                <li>Tesouro Direto (Prefixados e IPCA+)</li>
+                <li>CDBs de bancos médios</li>
+                <li>Fundos de investimento multimercado</li>
+                <li>Pequena parcela em fundos imobiliários</li>
+                <li>Até 30% em renda variável (ações e ETFs)</li>
+              </ul>
+            </div>
+          </div>
+          
+          <h3>A Tríade Risco-Retorno-Liquidez</h3>
+          <p>Todo investimento pode ser avaliado a partir de três dimensões fundamentais:</p>
+          <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+            <li><strong>Risco:</strong> Possibilidade de perder parte ou todo o capital investido</li>
+            <li><strong>Retorno:</strong> Ganho potencial esperado pelo investimento</li>
+            <li><strong>Liquidez:</strong> Facilidade de transformar o investimento em dinheiro disponível</li>
+          </ul>
+          
+          <div class="interactive-component">
+            <h3>⚖️ Ajustador de Risco-Retorno-Liquidez</h3>
+            <p>Movimente os controles abaixo para visualizar diferentes combinações:</p>
+            
+            <div class="risk-return-adjuster">
+              <div class="slider-container">
+                <label for="risk-slider">Risco: <span id="risk-value">50%</span></label>
+                <input type="range" id="risk-slider" min="0" max="100" value="50">
+              </div>
+              
+              <div class="slider-container">
+                <label for="return-slider">Retorno: <span id="return-value">50%</span></label>
+                <input type="range" id="return-slider" min="0" max="100" value="50">
+              </div>
+              
+              <div class="slider-container">
+                <label for="liquidity-slider">Liquidez: <span id="liquidity-value">50%</span></label>
+                <input type="range" id="liquidity-slider" min="0" max="100" value="50">
+              </div>
+            </div>
+            
+            <div class="triangle-visualization">
+              <!-- Aqui será renderizado o triângulo via JavaScript -->
+              <canvas id="triangle-canvas" width="300" height="300"></canvas>
+            </div>
+            
+            <p id="investment-suggestion">
+              <strong>Sugestão:</strong> Com este perfil de risco-retorno-liquidez, considere investir em títulos do Tesouro IPCA+ e fundos multimercado.
+            </p>
+          </div>
+        </section>
+        
+        <!-- Capítulo 4 -->
+        <section id="chapter4" class="chapter">
+          <h2>Renda Fixa - O Ponto de Partida</h2>
+          <p>A renda fixa é geralmente o ponto de partida recomendado para novos investidores. Estes investimentos oferecem mais previsibilidade e menor volatilidade, sendo <strong>ideais para construir uma base sólida</strong> para seu portfólio.</p>
+          
+          <h3>Principais Opções de Renda Fixa</h3>
+          
+          <div class="interactive-component">
+            <h3>🏦 Comparador de Produtos de Renda Fixa</h3>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+              <thead>
+                <tr style="background-color: var(--azul-claro);">
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Produto</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Rentabilidade Média</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Garantias</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Imposto</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Prazo Mínimo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>Tesouro Selic</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">100% Selic</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Governo Federal</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">IR regressivo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Sem prazo mínimo</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>CDB</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">100% a 120% CDI</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">FGC até R$250 mil</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">IR regressivo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Varia conforme emissor</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>LCI/LCA</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">85% a 97% CDI</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">FGC até R$250 mil</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Isento de IR</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">90 dias (mínimo)</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>Tesouro IPCA+</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">IPCA + 5% a.a.</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Governo Federal</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">IR regressivo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Sem prazo mínimo</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>Debêntures</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">IPCA + 6% a.a.</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Sem garantia</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Pode ser isento</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Varia conforme emissor</td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <div>
+              <h4>Calculadora de Imposto de Renda</h4>
+              <div class="calculator-inputs">
+                <div class="input-group">
+                  <label for="investment-value">Valor (R$)</label>
+                  <input type="number" id="investment-value" value="1000" min="0">
+                </div>
+                
+                <div class="input-group">
+                  <label for="investment-return">Rentabilidade (%)</label>
+                  <input type="number" id="investment-return" value="10" min="0" step="0.1">
+                </div>
+                
+                <div class="input-group">
+                  <label for="investment-period">Prazo (dias)</label>
+                  <input type="number" id="investment-period" value="365" min="1">
+                </div>
+              </div>
+              
+              <button id="calculate-tax-button">Calcular Imposto</button>
+              
+              <div id="tax-result" class="calculator-result">
+                <p><strong>Rendimento bruto:</strong> R$100,00</p>
+                <p><strong>Alíquota de IR:</strong> 17,5%</p>
+                <p><strong>Imposto a pagar:</strong> R$17,50</p>
+                <p><strong>Rendimento líquido:</strong> R$82,50</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Capítulo 5 -->
+        <section id="chapter5" class="chapter">
+          <h2>Primeiros Passos em Renda Variável</h2>
+          <p>Depois de construir uma base sólida em renda fixa, você pode considerar adicionar <strong>renda variável</strong> ao seu portfólio para buscar retornos potencialmente maiores no longo prazo.</p>
+          <p>Apesar do maior risco no curto prazo, historicamente a renda variável tende a <strong>superar a renda fixa em períodos mais longos</strong>, especialmente considerando horizontes de investimento de 10 anos ou mais.</p>
+          
+          <div class="interactive-component">
+            <h3>📈 Simulador de Investimento em Ações</h3>
+            <p>Veja como a estratégia de <strong>custo médio</strong> pode funcionar para reduzir riscos:</p>
+            
+            <div class="calculator-inputs">
+              <div class="input-group">
+                <label for="monthly-stock-investment">Aporte Mensal (R$)</label>
+                <input type="number" id="monthly-stock-investment" value="100" min="0">
+              </div>
+              
+              <div class="input-group">
+                <label for="volatility">Volatilidade (1-10)</label>
+                <input type="range" id="volatility" min="1" max="10" value="5">
+              </div>
+              
+              <div class="input-group">
+                <label for="investment-years">Anos</label>
+                <input type="number" id="investment-years" value="10" min="1" max="30">
+              </div>
+            </div>
+            
+            <button id="simulate-button">Simular</button>
+            
+            <div class="growth-chart" id="stock-chart">
+              <!-- Aqui será renderizado o gráfico via JavaScript -->
+            </div>
+            
+            <div id="simulation-result" class="calculator-result">
+              <p><strong>Total investido:</strong> R$12.000,00</p>
+              <p><strong>Valor final:</strong> R$21.589,32</p>
+              <p><strong>Preço médio de compra:</strong> R$42,15</p>
+              <p><strong>Retorno anualizado:</strong> 8,7%</p>
+            </div>
+          </div>
+          
+          <h3>Fundos Indexados para Iniciantes</h3>
+          <p>Para quem está começando, os <strong>fundos indexados</strong> (ETFs) oferecem uma excelente maneira de investir em renda variável com diversificação imediata e taxas mais baixas.</p>
+          <p>Ao invés de escolher ações individuais, você pode investir em um ETF que replica o Ibovespa ou outros índices, obtendo exposição a dezenas de empresas com uma única aplicação.</p>
+          
+          <div class="interactive-component">
+            <h3>💰 Comparação de Estratégias</h3>
+            <p>Compare diferentes estratégias de investimento ao longo do tempo:</p>
+            
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+              <thead>
+                <tr style="background-color: var(--azul-claro);">
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Estratégia</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Vantagens</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Desvantagens</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Perfil Ideal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>100% Renda Fixa</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Menor volatilidade, maior previsibilidade</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Retornos potencialmente menores a longo prazo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Conservador</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>80% Renda Fixa / 20% Variável</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Boa estabilidade com algum potencial de crescimento</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Exposição limitada ao crescimento do mercado</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Conservador a Moderado</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>60% Renda Fixa / 40% Variável</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Equilíbrio entre segurança e crescimento</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Volatilidade moderada, algumas oscilações</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Moderado</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>40% Renda Fixa / 60% Variável</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Bom potencial de crescimento</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Volatilidade significativa</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Moderado a Arrojado</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>20% Renda Fixa / 80% Variável</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Alto potencial de crescimento a longo prazo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Alta volatilidade, oscilações frequentes</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Arrojado</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border: 1px solid #ddd;"><strong>100% Renda Variável</strong></td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Máximo potencial de crescimento a longo prazo</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Volatilidade muito alta, quedas significativas possíveis</td>
+                  <td style="padding: 12px; border: 1px solid #ddd;">Muito Arrojado</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
 
-    <section>
-      <h2>O Que Você Vai Aprender</h2>
+  <script>
+    // Funcionalidade de navegação entre capítulos
+    document.addEventListener('DOMContentLoaded', function() {
+      // Seleção de capítulos
+      const chapterItems = document.querySelectorAll('.chapter-list li');
+      const chapters = document.querySelectorAll('.chapter');
       
-      <div class="feature">
-        <h3>📈 A Importância de Investir aos Poucos</h3>
-        <p>Descubra como pequenos investimentos mensais podem se transformar em um patrimônio expressivo ao longo do tempo.</p>
-      </div>
+      chapterItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // Remove classe active de todos os itens
+          chapterItems.forEach(i => i.classList.remove('active'));
+          chapters.forEach(c => c.classList.remove('active'));
+          
+          // Adiciona classe active ao item clicado
+          this.classList.add('active');
+          
+          // Mostra o capítulo correspondente
+          const chapterId = this.getAttribute('data-chapter');
+          document.getElementById(chapterId).classList.add('active');
+        });
+      });
       
-      <div class="feature">
-        <h3>💰 Ativos Financeiros - Fundamentos</h3>
-        <p>Entenda os diferentes tipos de investimentos e como eles podem trabalhar para você.</p>
-      </div>
+      // Calculadora de Juros Compostos
+      const calculateButton = document.getElementById('calculate-button');
+      if (calculateButton) {
+        calculateButton.addEventListener('click', function() {
+          const initialInvestment = parseFloat(document.getElementById('initial-investment').value) || 0;
+          const monthlyContribution = parseFloat(document.getElementById('monthly-contribution').value) || 0;
+          const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
+          const timePeriod = parseInt(document.getElementById('time-period').value) || 0;
+          
+          // Cálculo de juros compostos
+          let totalAmount = initialInvestment;
+          const monthlyRate = interestRate / 100 / 12;
+          
+          for (let i = 0; i < timePeriod * 12; i++) {
+            totalAmount = totalAmount * (1 + monthlyRate) + monthlyContribution;
+          }
+          
+          // Exibe o resultado
+          document.getElementById('calculator-result').innerHTML = `
+            <p><strong>Resultado:</strong> Ao investir R$${monthlyContribution} por mês durante ${timePeriod} anos, 
+            com uma taxa de ${interestRate}% ao ano, você terá aproximadamente <strong>R$${totalAmount.toFixed(2)}</strong>.</p>
+          `;
+          
+          // Implementação básica do gráfico (pode ser aprimorada com uma biblioteca de gráficos)
+          renderGrowthChart(initialInvestment, monthlyContribution, interestRate, timePeriod);
+        });
+      }
       
-      <div class="feature">
-        <h3>🧠 Conhecendo Seu Perfil de Investidor</h3>
-        <p>Determine seu perfil de risco e aprenda a balancear risco, retorno e liquidez.</p>
-      </div>
+      // Quiz de Perfil de Investidor
+      const quizSubmit = document.getElementById('quiz-submit');
+      if (quizSubmit) {
+        quizSubmit.addEventListener('click', function() {
+          // Pega os valores selecionados
+          const timeframe = document.querySelector('input[name="timeframe"]:checked')?.value || 3;
+          const reaction = document.querySelector('input[name="reaction"]:checked')?.value || 3;
+          const vision = document.querySelector('input[name="vision"]:checked')?.value || 3;
+          
+          // Calcula pontuação
+          const score = parseInt(timeframe) + parseInt(reaction) + parseInt(vision);
+          
+          // Determina o perfil
+          let profile, description, investments;
+          
+          if (score <= 7) {
+            profile = "Perfil Conservador";
+            description = "Você prioriza a segurança e a preservação do capital. Prefere investimentos de baixo risco, mesmo que ofereçam retornos menores.";
+            investments = [
+              "Tesouro Selic",
+              "CDBs de grandes bancos",
+              "LCI e LCA",
+              "Fundos DI",
+              "Até 10% em Tesouro IPCA+"
+            ];
+          } else if (score <= 11) {
+            profile = "Perfil Moderado";
+            description = "Você busca equilíbrio entre segurança e rentabilidade. Tolera alguma oscilação em seus investimentos, visando retornos médios no longo prazo.";
+            investments = [
+              "Tesouro Direto (Prefixados e IPCA+)",
+              "CDBs de bancos médios",
+              "Fundos de investimento multimercado",
+              "Pequena parcela em fundos imobiliários",
+              "Até 30% em renda variável (ações e ETFs)"
+            ];
+          } else {
+            profile = "Perfil Arrojado";
+            description = "Você está disposto a assumir riscos maiores em busca de retornos potencialmente mais elevados. Tem tolerância a oscilações significativas no curto prazo.";
+            investments = [
+              "Ações de empresas sólidas",
+              "ETFs de índices",
+              "Fundos Imobiliários",
+              "Fundos de ações",
+              "Até 70% em renda variável"
+            ];
+          }
+          
+          // Exibe o resultado
+          document.getElementById('profile-result').textContent = profile;
+          document.getElementById('profile-description').textContent = description;
+          
+          let investmentsList = '';
+          investments.forEach(inv => {
+            investmentsList += `<li>${inv}</li>`;
+          });
+          document.getElementById('recommended-investments').innerHTML = investmentsList;
+          
+          document.getElementById('quiz-result').style.display = 'block';
+        });
+      }
       
-      <div class="feature">
-        <h3>🏦 Renda Fixa - O Ponto de Partida</h3>
-        <p>Explore as opções seguras para iniciar sua jornada: Tesouro Direto, CDBs, LCIs e LCAs.</p>
-      </div>
+      // Ajustador de Risco-Retorno-Liquidez
+      const riskSlider = document.getElementById('risk-slider');
+      const returnSlider = document.getElementById('return-slider');
+      const liquiditySlider = document.getElementById('liquidity-slider');
       
-      <div class="feature">
-        <h3>📊 Primeiros Passos em Renda Variável</h3>
-        <p>Introdução às ações e fundos imobiliários para quem quer diversificar com segurança.</p>
-      </div>
-    </section>
-
-    <section>
-      <h2>Ferramentas Interativas</h2>
-      <p>
-        Nossa aplicação conta com calculadoras financeiras, simuladores de cenários,
-        quizzes de perfil de investidor e muito mais para facilitar o seu aprendizado.
-      </p>
-      <a href="#" class="cta-button">EXPLORAR O APLICATIVO</a>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 Investindo com Sabedoria. Todos os direitos reservados.</p>
-    <p>
-      <small>Este é um projeto educacional. Não constitui recomendação de investimento.</small>
-    </p>
-  </footer>
+      if (riskSlider && returnSlider && liquiditySlider) {
+        function updateSliderValues() {
+          document.getElementById('risk-value').textContent = `${riskSlider.value}%`;
+          document.getElementById('return-value').textContent = `${returnSlider.value}%`;
+          document.getElementById('liquidity-value').textContent = `${liquiditySlider.value}%`;
+          
+          updateTriangleVisualization();
+          updateInvestmentSuggestion();
+        }
+        
+        riskSlider.addEventListener('input', updateSliderValues);
+        returnSlider.addEventListener('input', updateSliderValues);
+        liquiditySlider.addEventListener('input', updateSliderValues);
+        
+        // Implementação básica da visualização do triângulo (pode ser aprimorada)
+        function updateTriangleVisualization() {
+          const canvas = document.getElementById('triangle-canvas');
+          if (!canvas) return;
+          
+          const ctx = canvas.getContext('2d');
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          // Desenha o triângulo base
+          ctx.beginPath();
+          ctx.moveTo(150, 50);  // Topo
+          ctx.lineTo(50, 250);  // Inferior esquerdo
+          ctx.lineTo(250, 250); // Inferior direito
+          ctx.closePath();
+          ctx.strokeStyle = '#2c3e50';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          
+          // Desenha o ponto representando a combinação atual
+          const risk = parseInt(riskSlider.value) / 100;
+          const returns = parseInt(returnSlider.value) / 100;
+          const liquidity = parseInt(liquiditySlider.value) / 100;
+          
+          // Cálculo simplificado da posição do ponto
+          const x = 150 + (risk * 100) - (liquidity * 100);
+          const y = 250 - (returns * 200);
+          
+          ctx.beginPath();
+          ctx.arc(x, y, 8, 0, Math.PI * 2);
+          ctx.fillStyle = '#b4e0e8';
+          ctx.fill();
+          ctx.strokeStyle = '#2c3e50';
+          ctx.stroke();
+          
+          // Adiciona labels
+          ctx.font = '14px Arial';
+          ctx.fillStyle = '#2c3e50';
+          ctx.fillText('Risco', 250, 270);
+          ctx.fillText('Retorno', 150, 40);
+          ctx.fillText('Liquidez', 30, 270);
+        }
+        
+        function updateInvestmentSuggestion() {
+          const risk = parseInt(riskSlider.value);
+          const returns = parseInt(returnSlider.value);
+          const liquidity = parseInt(liquiditySlider.value);
+          
+          let suggestion = '<strong>Sugestão:</strong> ';
+          
+          if (risk < 30) {
+            if (liquidity > 70) {
+              suggestion += 'Tesouro Selic ou CDBs de liquidez diária.';
+            } else {
+              suggestion += 'CDBs, LCIs ou LCAs de bancos tradicionais.';
+            }
+          } else if (risk < 60) {
+            if (returns > 60) {
+              suggestion += 'Tesouro IPCA+, debêntures incentivadas e fundos multimercado.';
+            } else {
+              suggestion += 'Fundos DI, Tesouro Prefixado e pequena alocação em fundos imobiliários.';
+            }
+          } else {
+            if (liquidity > 50) {
+              suggestion += 'ETFs de ações, ações blue chips e BDRs de empresas internacionais.';
+            } else {
+              suggestion += 'Fundos de ações, ações de small caps e fundos imobiliários de tijolo.';
+            }
+          }
+          
+          document.getElementById('investment-suggestion').innerHTML = suggestion;
+        }
+        
+        // Inicializa as visualizações
+        updateSliderValues();
+      }
+      
+      // Botão de tour
+      const tourButton = document.getElementById('tour-button');
+      if (tourButton) {
+        tourButton.addEventListener('click', function() {
+          alert('Tour interativo: Em uma versão completa do aplicativo, aqui seria iniciado um tour guiado pelos recursos interativos.');
+        });
+      }
+      
+      // Simulação básica de visualização para o gráfico
+      function renderGrowthChart(initialInvestment, monthlyContribution, interestRate, timePeriod) {
+        const chartContainer = document.getElementById('growth-chart');
+        if (!chartContainer) return;
+        
+        // Cálculos para o gráfico
+        const years = Array.from({length: timePeriod + 1}, (_, i) => i);
+        const investedValues = years.map(year => initialInvestment + (monthlyContribution * 12 * year));
+        
+        const monthlyRate = interestRate / 100 / 12;
+        const totalValues = [initialInvestment];
+        
+        for (let year = 1; year <= timePeriod; year++) {
+          let totalAmount = totalValues[year - 1];
+          for (let month = 0; month < 12; month++) {
+            totalAmount = totalAmount * (1 + monthlyRate) + monthlyContribution;
+          }
+          totalValues.push(totalAmount);
+        }
+        
+        // Criar uma visualização básica do gráfico
+        let chartHTML = `
+          <div style="position: relative; width: 100%; height: 100%; padding: 20px;">
+            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background-color: #333;"></div>
+            <div style="position: absolute; left: 0; bottom: 0; width: 1px; height: 100%; background-color: #333;"></div>
+        `;
+        
+        const maxValue = Math.max(...totalValues);
+        const barWidth = 100 / (timePeriod + 1);
+        
+        // Barras do valor investido
+        years.forEach((year, index) => {
+          const height = (investedValues[index] / maxValue) * 100;
+          chartHTML += `
+            <div style="position: absolute; bottom: 0; left: ${index * barWidth}%; width: ${barWidth * 0.4}%; height: ${height}%; background-color: #2c3e50; opacity: 0.7;"></div>
+          `;
+        });
+        
+        // Barras do valor total
+        years.forEach((year, index) => {
+          const height = (totalValues[index] / maxValue) * 100;
+          chartHTML += `
+            <div style="position: absolute; bottom: 0; left: ${index * barWidth + barWidth * 0.5}%; width: ${barWidth * 0.4}%; height: ${height}%; background-color: #b4e0e8;"></div>
+          `;
+        });
+        
+        // Legenda
+        chartHTML += `
+          <div style="position: absolute; top: 10px; right: 10px; background-color: white; padding: 5px; border: 1px solid #ddd;">
+            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+              <div style="width: 15px; height: 15px; background-color: #2c3e50; margin-right: 5px;"></div>
+              <span>Valor Investido</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <div style="width: 15px; height: 15px; background-color: #b4e0e8; margin-right: 5px;"></div>
+              <span>Valor Total</span>
+            </div>
+          </div>
+        `;
+        
+        chartHTML += '</div>';
+        chartContainer.innerHTML = chartHTML;
+      }
+      
+      // Simulador de Investimento em Ações
+      const simulateButton = document.getElementById('simulate-button');
+      if (simulateButton) {
+        simulateButton.addEventListener('click', function() {
+          const monthlyInvestment = parseFloat(document.getElementById('monthly-stock-investment').value) || 100;
+          const volatility = parseInt(document.getElementById('volatility').value) || 5;
+          const years = parseInt(document.getElementById('investment-years').value) || 10;
+          
+          // Simulação básica
+          const totalInvested = monthlyInvestment * 12 * years;
+          const annualReturn = 5 + Math.random() * 5 + volatility/2; // Retorno aleatório entre 5% e 15% + volatilidade
+          const finalValue = simulateStockInvestment(monthlyInvestment, years, annualReturn/100, volatility/10);
+          
+          // Atualiza o resultado
+          document.getElementById('simulation-result').innerHTML = `
+            <p><strong>Total investido:</strong> R$${totalInvested.toFixed(2)}</p>
+            <p><strong>Valor final:</strong> R$${finalValue.toFixed(2)}</p>
+            <p><strong>Preço médio de compra:</strong> R$${(totalInvested / (years * 12)).toFixed(2)}</p>
+            <p><strong>Retorno anualizado:</strong> ${((Math.pow(finalValue/totalInvested, 1/years) - 1) * 100).toFixed(1)}%</p>
+          `;
+          
+          // Implementação básica do gráfico
+          simulateStockChart(monthlyInvestment, years, annualReturn/100, volatility/10);
+        });
+      }
+      
+      function simulateStockInvestment(monthlyInvestment, years, annualReturn, volatility) {
+        let totalShares = 0;
+        let totalInvested = 0;
+        let currentPrice = 100; // Preço inicial arbitrário
+        
+        for (let month = 0; month < years * 12; month++) {
+          // Simula variação mensal do preço
+          const monthlyReturn = (annualReturn / 12) + ((Math.random() * 2 - 1) * volatility);
+          currentPrice = currentPrice * (1 + monthlyReturn);
+          
+          // Compra de ações neste mês
+          const sharesBought = monthlyInvestment / currentPrice;
+          totalShares += sharesBought;
+          totalInvested += monthlyInvestment;
+        }
+        
+        // Valor final
+        const finalValue = totalShares * currentPrice;
+        
+        return finalValue;
+      }
+      
+      function simulateStockChart(monthlyInvestment, years, annualReturn, volatility) {
+        const chartContainer = document.getElementById('stock-chart');
+        if (!chartContainer) return;
+        
+        // Gera dados para o gráfico
+        const months = years * 12;
+        const priceData = [];
+        const investedData = [];
+        let totalShares = 0;
+        let totalInvested = 0;
+        let currentPrice = 100; // Preço inicial arbitrário
+        
+        for (let month = 0; month <= months; month++) {
+          if (month > 0) {
+            // Simula variação mensal do preço
+            const monthlyReturn = (annualReturn / 12) + ((Math.random() * 2 - 1) * volatility);
+            currentPrice = currentPrice * (1 + monthlyReturn);
+            
+            // Compra de ações neste mês
+            const sharesBought = monthlyInvestment / currentPrice;
+            totalShares += sharesBought;
+            totalInvested += monthlyInvestment;
+          }
+          
+          priceData.push({
+            month: month,
+            price: currentPrice
+          });
+          
+          investedData.push({
+            month: month,
+            value: totalInvested,
+            portfolioValue: totalShares * currentPrice
+          });
+        }
+        
+        // Cria visualização básica
+        let chartHTML = `
+          <div style="position: relative; width: 100%; height: 100%; padding: 20px;">
+            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background-color: #333;"></div>
+            <div style="position: absolute; left: 0; bottom: 0; width: 1px; height: 100%; background-color: #333;"></div>
+        `;
+        
+        // Linha de preço
+        const maxPrice = Math.max(...priceData.map(d => d.price));
+        let pathData = '';
+        priceData.forEach((d, i) => {
+          const x = (d.month / months) * 100;
+          const y = 100 - (d.price / maxPrice * 90);
+          
+          if (i === 0) {
+            pathData += `M ${x}% ${y}%`;
+          } else {
+            pathData += ` L ${x}% ${y}%`;
+          }
+        });
+        
+        chartHTML += `
+          <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible;">
+            <path d="${pathData}" stroke="#2c3e50" stroke-width="2" fill="none" />
+          </svg>
+        `;
+        
+        // Valor da carteira vs valor investido
+        const maxValue = Math.max(...investedData.map(d => d.portfolioValue));
+        let investedPath = '';
+        let portfolioPath = '';
+        
+        investedData.forEach((d, i) => {
+          const x = (d.month / months) * 100;
+          const yInvested = 100 - (d.value / maxValue * 90);
+          const yPortfolio = 100 - (d.portfolioValue / maxValue * 90);
+          
+          if (i === 0) {
+            investedPath += `M ${x}% ${yInvested}%`;
+            portfolioPath += `M ${x}% ${yPortfolio}%`;
+          } else {
+            investedPath += ` L ${x}% ${yInvested}%`;
+            portfolioPath += ` L ${x}% ${yPortfolio}%`;
+          }
+        });
+        
+        chartHTML += `
+          <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible;">
+            <path d="${investedPath}" stroke="#fd7e14" stroke-width="2" fill="none" />
+            <path d="${portfolioPath}" stroke="#28a745" stroke-width="2" fill="none" />
+          </svg>
+        `;
+        
+        // Legenda
+        chartHTML += `
+          <div style="position: absolute; top: 10px; right: 10px; background-color: white; padding: 5px; border: 1px solid #ddd;">
+            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+              <div style="width: 15px; height: 15px; background-color: #2c3e50; margin-right: 5px;"></div>
+              <span>Preço da Ação</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+              <div style="width: 15px; height: 15px; background-color: #fd7e14; margin-right: 5px;"></div>
+              <span>Valor Investido</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <div style="width: 15px; height: 15px; background-color: #28a745; margin-right: 5px;"></div>
+              <span>Valor da Carteira</span>
+            </div>
+          </div>
+        `;
+        
+        chartHTML += '</div>';
+        chartContainer.innerHTML = chartHTML;
+      }
+      
+      // Calculadora de Imposto de Renda
+      const calculateTaxButton = document.getElementById('calculate-tax-button');
+      if (calculateTaxButton) {
+        calculateTaxButton.addEventListener('click', function() {
+          const investmentValue = parseFloat(document.getElementById('investment-value').value) || 0;
+          const investmentReturn = parseFloat(document.getElementById('investment-return').value) || 0;
+          const investmentPeriod = parseInt(document.getElementById('investment-period').value) || 0;
+          
+          // Cálculo do imposto
+          const returnAmount = investmentValue * (investmentReturn / 100);
+          
+          // Determina a alíquota com base no período
+          let taxRate;
+          if (investmentPeriod <= 180) {
+            taxRate = 22.5;
+          } else if (investmentPeriod <= 360) {
+            taxRate = 20;
+          } else if (investmentPeriod <= 720) {
+            taxRate = 17.5;
+          } else {
+            taxRate = 15;
+          }
+          
+          const taxAmount = returnAmount * (taxRate / 100);
+          const netReturn = returnAmount - taxAmount;
+          
+          // Exibe o resultado
+          document.getElementById('tax-result').innerHTML = `
+            <p><strong>Rendimento bruto:</strong> R$${returnAmount.toFixed(2)}</p>
+            <p><strong>Alíquota de IR:</strong> ${taxRate}%</p>
+            <p><strong>Imposto a pagar:</strong> R$${taxAmount.toFixed(2)}</p>
+            <p><strong>Rendimento líquido:</strong> R$${netReturn.toFixed(2)}</p>
+          `;
+        });
+      }
+      
+      // Toggle menu para mobile
+      const mobileToggle = document.querySelector('.mobile-toggle');
+      const appContainer = document.querySelector('.app-container');
+      
+      if (mobileToggle && appContainer) {
+        mobileToggle.addEventListener('click', function() {
+          appContainer.classList.toggle('show-sidebar');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
