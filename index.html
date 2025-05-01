@@ -1,23 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <title>Investindo com Sabedoria - Redirecionando...</title>
-  <script type="text/javascript">
-    // Redirecionar para a raiz quando acessar por URL direta
-    var pathSegmentsToKeep = 1;
-    var l = window.location;
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
-    );
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investindo com Sabedoria: Guia Prático para Iniciantes</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #2c3e50;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #b4e0e8;
+      color: #2c3e50;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    h2 {
+      border-bottom: 2px solid #b4e0e8;
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+    .feature {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .cta-button {
+      display: inline-block;
+      background-color: #2c3e50;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .cta-button:hover {
+      background-color: #1a252f;
+    }
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: #6c757d;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
-  <h1>Redirecionando...</h1>
-  <p>Se você não for redirecionado automaticamente, <a href="/investindo-com-sabedoria/">clique aqui</a>.</p>
+  <header>
+    <h1>INVESTINDO COM SABEDORIA</h1>
+    <p>Guia Prático para Iniciantes</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Bem-vindo ao Seu Futuro Financeiro</h2>
+      <p>
+        Este aplicativo interativo transforma o conhecimento financeiro em uma experiência
+        prática e acessível, permitindo que você comece sua jornada de investimentos
+        com apenas R$30 por mês.
+      </p>
+    </section>
+
+    <section>
+      <h2>O Que Você Vai Aprender</h2>
+      
+      <div class="feature">
+        <h3>📈 A Importância de Investir aos Poucos</h3>
+        <p>Descubra como pequenos investimentos mensais podem se transformar em um patrimônio expressivo ao longo do tempo.</p>
+      </div>
+      
+      <div class="feature">
+        <h3>💰 Ativos Financeiros - Fundamentos</h3>
+        <p>Entenda os diferentes tipos de investimentos e como eles podem trabalhar para você.</p>
+      </div>
+      
+      <div class="feature">
+        <h3>🧠 Conhecendo Seu Perfil de Investidor</h3>
+        <p>Determine seu perfil de risco e aprenda a balancear risco, retorno e liquidez.</p>
+      </div>
+      
+      <div class="feature">
+        <h3>🏦 Renda Fixa - O Ponto de Partida</h3>
+        <p>Explore as opções seguras para iniciar sua jornada: Tesouro Direto, CDBs, LCIs e LCAs.</p>
+      </div>
+      
+      <div class="feature">
+        <h3>📊 Primeiros Passos em Renda Variável</h3>
+        <p>Introdução às ações e fundos imobiliários para quem quer diversificar com segurança.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Ferramentas Interativas</h2>
+      <p>
+        Nossa aplicação conta com calculadoras financeiras, simuladores de cenários,
+        quizzes de perfil de investidor e muito mais para facilitar o seu aprendizado.
+      </p>
+      <a href="#" class="cta-button">EXPLORAR O APLICATIVO</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Investindo com Sabedoria. Todos os direitos reservados.</p>
+    <p>
+      <small>Este é um projeto educacional. Não constitui recomendação de investimento.</small>
+    </p>
+  </footer>
 </body>
 </html>
