@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
+import WebAlternativePieChart from './WebAlternativePieChart';
 
 // Importação condicional para estilos web
 let applyWebStyles, initChartAnimation;
@@ -13,13 +14,22 @@ if (Platform.OS === 'web') {
 }
 
 /**
- * Uma implementação alternativa de gráfico de pizza para ambiente web
- * usando técnicas de CSS e HTML padrão em vez de SVG
+ * Uma implementação de gráfico de pizza para ambiente web e nativo
+ * com fallback para componente alternativo quando necessário
  */
 const WebPieChart = ({ data, style }) => {
   // Ref para acessar o elemento DOM do gráfico na web
   const pieChartRef = useRef(null);
   const labelsContainerRef = useRef(null);
+  
+  // Flag para usar implementação alternativa em ambientes web com problemas de dependência
+  const [useAlternative, setUseAlternative] = React.useState(Platform.OS === 'web');
+  
+  // Se estamos no ambiente web, tentamos usar a implementação alternativa
+  // que não depende de react-native-svg
+  if (useAlternative && Platform.OS === 'web') {
+    return <WebAlternativePieChart data={data} style={style} />;
+  }
   
   // Calcular o ângulo total (em graus) de cada seção do gráfico
   const calculateSlices = (dataItems) => {
@@ -62,15 +72,22 @@ const WebPieChart = ({ data, style }) => {
   
   // Efeito para aplicar os estilos web e animações quando o componente for montado
   useEffect(() => {
+    // Se estamos no web e temos refs válidos, tentamos aplicar estilos
     if (Platform.OS === 'web' && pieChartRef.current) {
-      // Aplicar estilos ao gráfico
-      if (applyWebStyles) {
-        applyWebStyles(pieChartRef.current, conicGradient, pieSize);
-      }
-      
-      // Aplicar animações ao gráfico
-      if (initChartAnimation) {
-        initChartAnimation(pieChartRef);
+      try {
+        // Aplicar estilos ao gráfico
+        if (applyWebStyles) {
+          applyWebStyles(pieChartRef.current, conicGradient, pieSize);
+        }
+        
+        // Aplicar animações ao gráfico
+        if (initChartAnimation) {
+          initChartAnimation(pieChartRef);
+        }
+      } catch (e) {
+        console.error('Erro ao aplicar estilos web:', e);
+        // Se falhar, usamos a implementação alternativa
+        setUseAlternative(true);
       }
     }
   }, [conicGradient, pieSize]);
