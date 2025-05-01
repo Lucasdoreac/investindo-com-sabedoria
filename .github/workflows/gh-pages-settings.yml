@@ -1,0 +1,36 @@
+name: Configure GitHub Pages Settings
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/gh-pages-settings.yml'
+
+jobs:
+  config-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure GitHub Pages
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            try {
+              const result = await github.rest.repos.updateInformationAboutPagesSite({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                source: {
+                  branch: 'gh-pages',
+                  path: '/'
+                }
+              });
+              console.log('GitHub Pages settings updated successfully!');
+            } catch (error) {
+              console.error('Error updating GitHub Pages settings:', error);
+              core.setFailed(error.message);
+            }
