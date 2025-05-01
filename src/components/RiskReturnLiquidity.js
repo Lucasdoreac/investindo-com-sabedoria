@@ -6,55 +6,10 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native';
+import Slider from '@react-native-community/slider';
 import { COLORS } from '../styles/globalStyles';
 
-// Componente simples de slider compatível com todas as plataformas
-const UniversalSlider = ({ value, onValueChange, minimumValue, maximumValue }) => {
-  // Calculando a largura da barra baseada no valor atual
-  const fillWidth = `${((value - minimumValue) / (maximumValue - minimumValue)) * 100}%`;
-  
-  // Função para lidar com toques na barra
-  const handleTouch = (evt) => {
-    const { locationX, target } = evt.nativeEvent;
-    
-    // Obtendo medidas do elemento para calcular a posição relativa
-    target.measure((x, y, width, height, pageX, pageY) => {
-      // Calculando o valor baseado na posição do toque
-      const newValue = minimumValue + ((locationX / width) * (maximumValue - minimumValue));
-      
-      // Arredondando para o step mais próximo (assumindo step de 5)
-      const step = 5;
-      const roundedValue = Math.round(newValue / step) * step;
-      
-      // Limitando aos valores mínimo e máximo
-      const clampedValue = Math.max(minimumValue, Math.min(maximumValue, roundedValue));
-      
-      // Atualizando o valor
-      onValueChange(clampedValue);
-    });
-  };
-  
-  return (
-    <TouchableOpacity 
-      style={styles.sliderTrack}
-      onPress={handleTouch}
-      activeOpacity={0.8}
-    >
-      <View 
-        style={[
-          styles.sliderFill,
-          { width: fillWidth }
-        ]} 
-      />
-      <View 
-        style={[
-          styles.sliderThumb,
-          { left: fillWidth }
-        ]} 
-      />
-    </TouchableOpacity>
-  );
-};
+
 
 const RiskReturnLiquidity = () => {
   // Estados para os valores de cada dimensão
@@ -227,11 +182,16 @@ const RiskReturnLiquidity = () => {
         <Text style={styles.sliderLabel}>
           Risco: <Text style={styles.sliderValue}>{risk}%</Text>
         </Text>
-        <UniversalSlider
+        <Slider
           minimumValue={0}
           maximumValue={100}
           value={risk}
           onValueChange={setRisk}
+          step={5}
+          minimumTrackTintColor={COLORS.primaryDark}
+          maximumTrackTintColor="#e0e0e0"
+          thumbTintColor={COLORS.white}
+          style={{ height: 40 }}
         />
         <View style={styles.sliderLegend}>
           <Text>Menor</Text>
@@ -243,11 +203,16 @@ const RiskReturnLiquidity = () => {
         <Text style={styles.sliderLabel}>
           Retorno Potencial: <Text style={styles.sliderValue}>{return_}%</Text>
         </Text>
-        <UniversalSlider
+        <Slider
           minimumValue={0}
           maximumValue={100}
           value={return_}
           onValueChange={setReturn}
+          step={5}
+          minimumTrackTintColor={COLORS.primaryDark}
+          maximumTrackTintColor="#e0e0e0"
+          thumbTintColor={COLORS.white}
+          style={{ height: 40 }}
         />
         <View style={styles.sliderLegend}>
           <Text>Menor</Text>
@@ -259,11 +224,16 @@ const RiskReturnLiquidity = () => {
         <Text style={styles.sliderLabel}>
           Liquidez: <Text style={styles.sliderValue}>{liquidity}%</Text>
         </Text>
-        <UniversalSlider
+        <Slider
           minimumValue={0}
           maximumValue={100}
           value={liquidity}
           onValueChange={setLiquidity}
+          step={5}
+          minimumTrackTintColor={COLORS.primaryDark}
+          maximumTrackTintColor="#e0e0e0"
+          thumbTintColor={COLORS.white}
+          style={{ height: 40 }}
         />
         <View style={styles.sliderLegend}>
           <Text>Menor</Text>
@@ -366,35 +336,7 @@ const styles = StyleSheet.create({
   sliderValue: {
     fontWeight: 'bold',
   },
-  sliderTrack: {
-    height: 20,
-    backgroundColor: '#e0e0e0',
-    borderRadius: 10,
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  sliderFill: {
-    position: 'absolute',
-    left: 0,
-    height: '100%',
-    backgroundColor: COLORS.primaryDark,
-    borderRadius: 10,
-  },
-  sliderThumb: {
-    position: 'absolute',
-    height: 26,
-    width: 26,
-    borderRadius: 13,
-    backgroundColor: 'white',
-    borderWidth: 2,
-    borderColor: COLORS.primaryDark,
-    transform: [{ translateX: -13 }],
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-  },
+
   sliderLegend: {
     flexDirection: 'row',
     justifyContent: 'space-between',

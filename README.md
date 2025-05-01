@@ -25,6 +25,8 @@ Este aplicativo tem como objetivo desmistificar o conhecimento financeiro e tran
 - React Native
 - Expo
 - React Navigation
+- React Native SVG e SVG Charts (para visualizações gráficas)
+- React Native Community Slider (para controles deslizantes)
 - JavaScript ES6+
 
 ## 📋 Estrutura do Projeto
@@ -35,8 +37,7 @@ luaraujo-livro-app/
 ├── src/
 │   ├── components/       # Componentes reutilizáveis
 │   ├── screens/          # Telas do aplicativo
-│   ├── styles/           # Estilos e temas
-│   └── utils/            # Funções utilitárias
+│   └── styles/           # Estilos e temas
 ├── App.js                # Ponto de entrada do aplicativo
 ├── package.json          # Dependências do projeto
 └── README.md             # Documentação

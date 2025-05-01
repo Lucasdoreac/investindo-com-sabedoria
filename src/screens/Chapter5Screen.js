@@ -8,9 +8,32 @@ import {
   SafeAreaView,
   Image
 } from 'react-native';
+import { PieChart } from 'react-native-svg-charts';
+import { Text as SVGText } from 'react-native-svg';
 import { COLORS, globalStyles } from '../styles/globalStyles';
 import InvestmentGrowthChart from '../components/InvestmentGrowthChart';
 import AutomatedInvestmentSimulator from '../components/AutomatedInvestmentSimulator';
+
+// Componente para exibir rótulos dentro do gráfico de pizza
+const Labels = ({ slices }) => {
+  return slices.map((slice, index) => {
+    const { pieCentroid, data } = slice;
+    return (
+      <SVGText
+        key={index}
+        x={pieCentroid[0]}
+        y={pieCentroid[1]}
+        fill="white"
+        textAnchor="middle"
+        alignmentBaseline="middle"
+        fontSize={14}
+        fontWeight="bold"
+      >
+        {data.value}%
+      </SVGText>
+    );
+  });
+};
 
 const Chapter5Screen = ({ navigation }) => {
   return (
@@ -168,55 +191,65 @@ const Chapter5Screen = ({ navigation }) => {
           <Text style={styles.sectionTitle}>📊 Composição da Carteira para Iniciantes</Text>
           
           <View style={styles.compositionContainer}>
-            <View style={styles.pieChartContainer}>
-              <View style={styles.pieChart}>
-                {/* Fundo circular completo */}
-                <View style={styles.pieBackground} />
-                
-                {/* Renda Fixa: 65% */}
-                <View style={styles.pieSliceContainer}>
-                  <View style={[styles.pieSlice, styles.fixedIncome, { transform: [{rotateZ: '0deg'}] }]} />
-                </View>
-                
-                {/* ETFs: 20% */}
-                <View style={styles.pieSliceContainer}>
-                  <View style={[styles.pieSlice, styles.etfs, { transform: [{rotateZ: '234deg'}] }]} />
-                </View>
-                
-                {/* Ações: 10% */}
-                <View style={styles.pieSliceContainer}>
-                  <View style={[styles.pieSlice, styles.stocks, { transform: [{rotateZ: '306deg'}] }]} />
-                </View>
-                
-                {/* Fundos Imobiliários: 5% */}
-                <View style={styles.pieSliceContainer}>
-                  <View style={[styles.pieSlice, styles.reits, { transform: [{rotateZ: '342deg'}] }]} />
-                </View>
-                
-                {/* Centro do gráfico */}
-                <View style={styles.pieCenter} />
-              </View>
-            </View>
-            
-            <View style={styles.pieLabelsContainer}>
-              <View style={styles.pieLabelRow}>
-                <View style={[styles.pieLabelColor, { backgroundColor: COLORS.primaryDark }]} />
-                <Text style={styles.pieLabelText}>Renda Fixa: 65%</Text>
-              </View>
-              
-              <View style={styles.pieLabelRow}>
-                <View style={[styles.pieLabelColor, { backgroundColor: '#4CAF50' }]} />
-                <Text style={styles.pieLabelText}>ETFs: 20%</Text>
+            <Text style={styles.sectionTitle}>Composição de Carteira Modelo</Text>
+            <View style={styles.chartRow}>
+              <View style={styles.pieChartContainer}>
+                <PieChart
+                  style={{ height: 200, width: 200 }}
+                  valueAccessor={({ item }) => item.value}
+                  data={[
+                    {
+                      key: 1,
+                      value: 65,
+                      svg: { fill: COLORS.primaryDark },
+                      arc: { outerRadius: '100%', padAngle: 0.01 }
+                    },
+                    {
+                      key: 2,
+                      value: 20,
+                      svg: { fill: '#4CAF50' },
+                      arc: { outerRadius: '100%', padAngle: 0.01 }
+                    },
+                    {
+                      key: 3,
+                      value: 10,
+                      svg: { fill: '#FFC107' },
+                      arc: { outerRadius: '100%', padAngle: 0.01 }
+                    },
+                    {
+                      key: 4,
+                      value: 5,
+                      svg: { fill: '#9C27B0' },
+                      arc: { outerRadius: '100%', padAngle: 0.01 }
+                    }
+                  ]}
+                  innerRadius={'45%'}
+                  outerRadius={'90%'}
+                >
+                  <Labels />
+                </PieChart>
               </View>
               
-              <View style={styles.pieLabelRow}>
-                <View style={[styles.pieLabelColor, { backgroundColor: '#FFC107' }]} />
-                <Text style={styles.pieLabelText}>Ações: 10%</Text>
-              </View>
-              
-              <View style={styles.pieLabelRow}>
-                <View style={[styles.pieLabelColor, { backgroundColor: '#9C27B0' }]} />
-                <Text style={styles.pieLabelText}>Fundos Imobiliários: 5%</Text>
+              <View style={styles.pieLabelsContainer}>
+                <View style={styles.pieLabelRow}>
+                  <View style={[styles.pieLabelColor, { backgroundColor: COLORS.primaryDark }]} />
+                  <Text style={styles.pieLabelText}>Tesouro IPCA+: 65%</Text>
+                </View>
+                
+                <View style={styles.pieLabelRow}>
+                  <View style={[styles.pieLabelColor, { backgroundColor: '#4CAF50' }]} />
+                  <Text style={styles.pieLabelText}>ETF IVVB11: 20%</Text>
+                </View>
+                
+                <View style={styles.pieLabelRow}>
+                  <View style={[styles.pieLabelColor, { backgroundColor: '#FFC107' }]} />
+                  <Text style={styles.pieLabelText}>Ações: 10%</Text>
+                </View>
+                
+                <View style={styles.pieLabelRow}>
+                  <View style={[styles.pieLabelColor, { backgroundColor: '#9C27B0' }]} />
+                  <Text style={styles.pieLabelText}>FIIs:: 5%</Text>
+                </View>
               </View>
             </View>
           </View>
@@ -438,71 +471,17 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingTop: 20,
   },
+  chartRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   pieChartContainer: {
-    width: 140,
-    height: 140,
+    width: 200,
+    height: 200,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
-  },
-  pieChart: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  pieBackground: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 50,
-    backgroundColor: '#f0f0f0',
-    position: 'absolute',
-  },
-  pieSliceContainer: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    borderRadius: 50,
-    overflow: 'hidden',
-  },
-  pieSlice: {
-    position: 'absolute',
-    width: '100%',
-    height: '200%',  // Dobro da altura para criar um semi-círculo
-    left: 0,
-    top: 0,
-    borderTopLeftRadius: 100,  // Grande o suficiente para arredondar completamente
-    borderTopRightRadius: 100,
-    transformOrigin: 'bottom center',
-  },
-  fixedIncome: {
-    backgroundColor: COLORS.primaryDark, // 65%
-  },
-  etfs: {
-    backgroundColor: '#4CAF50', // 20%
-  },
-  stocks: {
-    backgroundColor: '#FFC107', // 10%
-  },
-  reits: {
-    backgroundColor: '#9C27B0', // 5%
-  },
-  pieCenter: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: COLORS.white,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: [{ translateX: -12 }, { translateY: -12 }],
-    zIndex: 10,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1,
   },
   pieLabelsContainer: {
     flex: 1,

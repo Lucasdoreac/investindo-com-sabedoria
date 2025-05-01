@@ -139,13 +139,6 @@ const Chapter3Screen = ({ navigation }) => {
             </Text>
           </View>
           
-          <View style={[styles.tipContainer, {backgroundColor: '#fff3e0'}]}>
-            <Text style={styles.tipTitle}>🏗️ App em Desenvolvimento</Text>
-            <Text style={styles.tipText}>
-              Os próximos capítulos sobre Renda Fixa e Renda Variável estão em desenvolvimento. 
-              Voltaremos em breve com mais conteúdo educativo para sua jornada de investimentos!
-            </Text>
-          </View>
           
           <View style={styles.navigationButtons}>
             <TouchableOpacity 
