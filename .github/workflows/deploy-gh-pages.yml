@@ -37,7 +37,7 @@ jobs:
         run: npm install -g expo-cli
 
       - name: Build web 🏗️
-        run: npx expo export:web --no-minify
+        run: npx expo export:web
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
