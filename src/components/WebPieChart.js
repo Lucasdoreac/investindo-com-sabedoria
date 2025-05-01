@@ -19,6 +19,7 @@ if (Platform.OS === 'web') {
 const WebPieChart = ({ data, style }) => {
   // Ref para acessar o elemento DOM do gráfico na web
   const pieChartRef = useRef(null);
+  const labelsContainerRef = useRef(null);
   
   // Calcular o ângulo total (em graus) de cada seção do gráfico
   const calculateSlices = (dataItems) => {
@@ -31,6 +32,7 @@ const WebPieChart = ({ data, style }) => {
         ...item,
         startAngle,
         angle,
+        percentage: Math.round((item.value / total) * 100)
       };
       startAngle += angle;
       return slice;
@@ -90,41 +92,58 @@ const WebPieChart = ({ data, style }) => {
         </View>
       </View>
       
-      {/* Renderização de rótulos internos - apenas percentuais */}
-      {slices.map((slice, index) => {
-        // Calcular a posição do rótulo
-        const angle = slice.startAngle + (slice.angle / 2);
-        const angleInRadians = (angle - 90) * (Math.PI / 180);
-        
-        // Ajuste para colocar os rótulos na posição correta dentro do gráfico
-        // Reduzir o raio para garantir que todos os rótulos fiquem dentro do gráfico
-        const radius = pieSize * 0.3; // 30% do tamanho do gráfico
-        const x = radius * Math.cos(angleInRadians);
-        const y = radius * Math.sin(angleInRadians);
-        
-        // Ajuste para fatias menores - ocultar valor para fatias pequenas (menos de 10%)
-        // e apenas mostrar no lado externo na legenda
-        if (slice.value < 10) {
-          return null; // Não mostrar rótulo dentro do gráfico para fatias pequenas
-        }
-        
-        return (
-          <Text
-            key={index}
-            style={[
-              styles.label,
-              {
-                transform: [
-                  { translateX: x + (pieSize / 2) - 10 },
-                  { translateY: y + (pieSize / 2) - 10 }
-                ]
-              }
-            ]}
-          >
-            {slice.value}%
-          </Text>
-        );
-      })}
+      {/* Container separado para os rótulos para evitar problemas com a rotação */}
+      <View 
+        ref={labelsContainerRef}
+        style={[
+          styles.labelsContainer,
+          {
+            height: pieSize,
+            width: pieSize,
+          }
+        ]}
+      >
+        {/* Renderização de rótulos internos - apenas percentuais para fatias grandes o suficiente */}
+        {slices.map((slice, index) => {
+          // Calcular a posição do rótulo
+          // Ajuste do ângulo para compensar a rotação de -90 graus do gráfico
+          const midAngle = slice.startAngle + (slice.angle / 2);
+          const angleInRadians = ((midAngle) * (Math.PI / 180));
+          
+          // Ajustar o raio para posicionar os rótulos corretamente
+          // Quanto maior a fatia, mais para fora posicionamos o rótulo
+          const radiusAdjustment = slice.angle < 30 ? 0.35 : 0.4;
+          const radius = pieSize * radiusAdjustment;
+          
+          // Cálculo da posição com ajuste para a rotação do gráfico
+          const x = radius * Math.cos(angleInRadians);
+          const y = radius * Math.sin(angleInRadians);
+          
+          // Não mostrar rótulo para fatias pequenas (menos de 5%)
+          if (slice.percentage < 5) {
+            return null;
+          }
+          
+          return (
+            <View
+              key={index}
+              style={[
+                styles.labelContainer,
+                {
+                  transform: [
+                    { translateX: x + (pieSize / 2) - 20 },
+                    { translateY: y + (pieSize / 2) - 15 }
+                  ]
+                }
+              ]}
+            >
+              <Text style={styles.label}>
+                {slice.percentage}%
+              </Text>
+            </View>
+          );
+        })}
+      </View>
     </View>
   );
 };
@@ -140,27 +159,39 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'absolute',
   },
   innerCircle: {
     width: '45%',
     height: '45%',
     borderRadius: 9999,
     backgroundColor: 'white',
+    position: 'absolute',
+    zIndex: 2,
+  },
+  labelsContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 3,
+    pointerEvents: 'none',
+  },
+  labelContainer: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 4,
+    padding: 2,
+    minWidth: 36,
+    alignItems: 'center',
   },
   label: {
-    position: 'absolute',
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
     textAlign: 'center',
     textShadowColor: 'rgba(0, 0, 0, 0.6)',
     textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
-    paddingHorizontal: 4,
-    paddingVertical: 2,
-    borderRadius: 4,
-    overflow: 'hidden',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowRadius: 2,
   }
 });
 
