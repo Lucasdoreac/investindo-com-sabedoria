@@ -16,13 +16,45 @@ import Chapter3Screen from './src/screens/Chapter3Screen';
 import Chapter4Screen from './src/screens/Chapter4Screen';
 import Chapter5Screen from './src/screens/Chapter5Screen';
 
+// Importação das configurações web para GitHub Pages
+import webConfig from './src/web-config';
+
 // Criação do stack navigator
 const Stack = createStackNavigator();
+
+// Hook para lidar com a navegação web no GitHub Pages
+const useWebNavigation = () => {
+  if (Platform.OS !== 'web') return {};
+
+  const linking = {
+    prefixes: [
+      // URL base para desenvolvimento local
+      'http://localhost:19006',
+      // URL do GitHub Pages
+      `https://${webConfig.isGitHubPages ? 'lucasdoreac.github.io/investindo-com-sabedoria' : ''}`
+    ],
+    config: {
+      screens: {
+        Home: '',
+        Chapter1: 'capitulo1',
+        Chapter2: 'capitulo2',
+        Chapter3: 'capitulo3',
+        Chapter4: 'capitulo4',
+        Chapter5: 'capitulo5',
+      }
+    },
+  };
+
+  return { linking };
+};
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  
+  // Configurações de navegação web
+  const webNavigation = useWebNavigation();
 
   // Verificar o carregamento das bibliotecas necessárias
   useEffect(() => {
@@ -31,6 +63,8 @@ export default function App() {
         try {
           // Tentar carregar as bibliotecas necessárias para web
           // Se não funcionar, não é problema, usaremos o fallback
+          console.log('Aplicativo web inicializado no ambiente:', 
+            webConfig.isGitHubPages ? 'GitHub Pages' : 'Desenvolvimento local');
           setIsLoading(false);
         } catch (error) {
           console.warn('Erro ao carregar dependências:', error);
@@ -79,7 +113,7 @@ export default function App() {
   // Renderizar o aplicativo normalmente
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer {...webNavigation}>
         <StatusBar style="light" backgroundColor={COLORS.primaryDark} />
         
         <Stack.Navigator
