@@ -6,34 +6,56 @@ import {
   ScrollView, 
   TouchableOpacity,
   SafeAreaView,
-  Image
+  Image,
+  Platform
 } from 'react-native';
-import { PieChart } from 'react-native-svg-charts';
-import { Text as SVGText } from 'react-native-svg';
+
+// Importações condicionais baseadas na plataforma
+let PieChart, SVGText;
+if (Platform.OS === 'web') {
+  // Na web, use nosso componente personalizado
+  PieChart = require('../components/WebPieChart').default;
+  SVGText = Text; // Fallback para o Text padrão
+} else {
+  // Em dispositivos móveis, use react-native-svg-charts
+  try {
+    const svgCharts = require('react-native-svg-charts');
+    const svg = require('react-native-svg');
+    PieChart = svgCharts.PieChart;
+    SVGText = svg.Text;
+  } catch (err) {
+    // Fallback caso a biblioteca não esteja disponível
+    console.warn('react-native-svg-charts não disponível:', err);
+    PieChart = require('../components/WebPieChart').default;
+    SVGText = Text;
+  }
+}
 import { COLORS, globalStyles } from '../styles/globalStyles';
 import InvestmentGrowthChart from '../components/InvestmentGrowthChart';
 import AutomatedInvestmentSimulator from '../components/AutomatedInvestmentSimulator';
 
-// Componente para exibir rótulos dentro do gráfico de pizza
-const Labels = ({ slices }) => {
-  return slices.map((slice, index) => {
-    const { pieCentroid, data } = slice;
-    return (
-      <SVGText
-        key={index}
-        x={pieCentroid[0]}
-        y={pieCentroid[1]}
-        fill="white"
-        textAnchor="middle"
-        alignmentBaseline="middle"
-        fontSize={14}
-        fontWeight="bold"
-      >
-        {data.value}%
-      </SVGText>
-    );
-  });
-};
+// Componente para exibir rótulos dentro do gráfico de pizza (apenas para dispositivos móveis)
+const Labels = Platform.OS !== 'web' 
+  ? ({ slices }) => {
+      return slices.map((slice, index) => {
+        const { pieCentroid, data } = slice;
+        return (
+          <SVGText
+            key={index}
+            x={pieCentroid[0]}
+            y={pieCentroid[1]}
+            fill="white"
+            textAnchor="middle"
+            alignmentBaseline="middle"
+            fontSize={14}
+            fontWeight="bold"
+          >
+            {data.value}%
+          </SVGText>
+        );
+      });
+    }
+  : () => null; // Na web, os rótulos são tratados dentro do WebPieChart
 
 const Chapter5Screen = ({ navigation }) => {
   return (
@@ -196,37 +218,37 @@ const Chapter5Screen = ({ navigation }) => {
               <View style={styles.pieChartContainer}>
                 <PieChart
                   style={{ height: 200, width: 200 }}
-                  valueAccessor={({ item }) => item.value}
+                  valueAccessor={Platform.OS !== 'web' ? ({ item }) => item.value : undefined}
+                  innerRadius={Platform.OS !== 'web' ? '45%' : undefined}
+                  outerRadius={Platform.OS !== 'web' ? '90%' : undefined}
                   data={[
                     {
                       key: 1,
                       value: 65,
                       svg: { fill: COLORS.primaryDark },
-                      arc: { outerRadius: '100%', padAngle: 0.01 }
+                      arc: Platform.OS !== 'web' ? { outerRadius: '100%', padAngle: 0.01 } : undefined
                     },
                     {
                       key: 2,
                       value: 20,
                       svg: { fill: '#4CAF50' },
-                      arc: { outerRadius: '100%', padAngle: 0.01 }
+                      arc: Platform.OS !== 'web' ? { outerRadius: '100%', padAngle: 0.01 } : undefined
                     },
                     {
                       key: 3,
                       value: 10,
                       svg: { fill: '#FFC107' },
-                      arc: { outerRadius: '100%', padAngle: 0.01 }
+                      arc: Platform.OS !== 'web' ? { outerRadius: '100%', padAngle: 0.01 } : undefined
                     },
                     {
                       key: 4,
                       value: 5,
                       svg: { fill: '#9C27B0' },
-                      arc: { outerRadius: '100%', padAngle: 0.01 }
+                      arc: Platform.OS !== 'web' ? { outerRadius: '100%', padAngle: 0.01 } : undefined
                     }
                   ]}
-                  innerRadius={'45%'}
-                  outerRadius={'90%'}
                 >
-                  <Labels />
+                  {Platform.OS !== 'web' && <Labels />}
                 </PieChart>
               </View>
               
@@ -248,17 +270,21 @@ const Chapter5Screen = ({ navigation }) => {
                 
                 <View style={styles.pieLabelRow}>
                   <View style={[styles.pieLabelColor, { backgroundColor: '#9C27B0' }]} />
-                  <Text style={styles.pieLabelText}>FIIs:: 5%</Text>
+                  <Text style={styles.pieLabelText}>FIIs: 5%</Text>
                 </View>
               </View>
             </View>
           </View>
           
-          <Text style={styles.paragraph}>
-            Esta <Text style={styles.highlight}>composição sugerida para iniciantes</Text> combina a segurança 
-            da renda fixa com uma exposição gradual à renda variável. À medida que você ganha experiência 
-            e conhecimento, pode aumentar progressivamente a alocação em renda variável.
-          </Text>
+          <View style={styles.explanationBox}>
+            <Text style={styles.paragraph}>
+              Esta <Text style={styles.highlight}>composição sugerida para iniciantes</Text> combina a segurança 
+              da renda fixa com uma exposição gradual à renda variável. 
+            </Text>
+            <Text style={styles.paragraph}>
+              À medida que você ganha experiência e conhecimento, pode aumentar progressivamente a alocação em renda variável, ajustando de acordo com seu perfil de risco e objetivos financeiros.
+            </Text>
+          </View>
           
           <Text style={styles.sectionTitle}>🚀 Simulação de Aporte Automático</Text>
           
@@ -461,9 +487,8 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   compositionContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column', // Mudar para coluna em vez de linha
     alignItems: 'center',
-    justifyContent: 'space-between',
     marginBottom: 20,
     backgroundColor: '#f9f9f9',
     borderRadius: 8,
@@ -474,7 +499,10 @@ const styles = StyleSheet.create({
   chartRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    marginTop: 10,
+    width: '100%',
   },
   pieChartContainer: {
     width: 200,
@@ -484,13 +512,22 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   pieLabelsContainer: {
-    flex: 1,
+    minWidth: 200,
     paddingLeft: 15,
+    paddingTop: 15,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
   pieLabelRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 4,
+    width: '100%',
   },
   pieLabelColor: {
     width: 18,
@@ -499,12 +536,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
   pieLabelText: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#333',
   },
   mistakesContainer: {
     marginBottom: 20,
@@ -568,6 +606,14 @@ const styles = StyleSheet.create({
   homeButtonText: {
     fontWeight: 'bold',
     color: COLORS.white,
+  },
+  explanationBox: {
+    backgroundColor: '#f5f9ff',
+    borderRadius: 8,
+    padding: 15,
+    marginVertical: 15,
+    borderLeftWidth: 4,
+    borderLeftColor: COLORS.primaryDark,
   },
 });
 

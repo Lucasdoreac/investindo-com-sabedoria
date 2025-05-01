@@ -58,7 +58,7 @@ const MonthsVisualizer = ({ months, investedMonths, skippedMonths }) => {
           <Text style={styles.legendText}>Não investido</Text>
         </View>
         <View style={styles.legendItem}>
-          <View style={[styles.legendIcon, { backgroundColor: '#ffcccc' }]} />
+          <View style={[styles.legendIcon, { backgroundColor: '#ff9999', borderWidth: 1, borderColor: '#e74c3c' }]} />
           <Text style={styles.legendText}>Aporte esquecido</Text>
         </View>
       </View>
@@ -90,6 +90,21 @@ const AutomatedInvestmentSimulator = () => {
     runSimulation();
   }, [monthlyAmount, annualReturn, simulationYears, isAutomated, consistency]);
   
+  // Função auxiliar para determinar se o investimento deve ser feito em um mês específico
+  // Esta implementação é mais robusta e funciona com todos os níveis de disciplina
+  const shouldInvest = (monthIndex, level, seedValue) => {
+    // Implementação simplificada e robusta
+    if (level >= 100) return true;  // Sempre investe com 100%
+    if (level <= 0) return false;   // Nunca investe com 0%
+    
+    // Usar números primos grandes para melhor distribuição
+    // 73 é um número primo que ajuda a distribuir os valores
+    const hash = (monthIndex * 73 + seedValue) % 100;
+    
+    // Retorna true para valores abaixo do nível de consistência
+    return hash < level;
+  };
+  
   // Simula o processo de investimento
   const runSimulation = () => {
     const totalMonths = simulationYears * 12;
@@ -99,8 +114,7 @@ const AutomatedInvestmentSimulator = () => {
     let totalInvested = 0;
     let finalBalance = 0;
     
-    // Definir uma semente para o gerador de números aleatórios
-    // para consistência nos resultados com mesmo nível de disciplina
+    // Semente para consistência nos resultados
     const seed = consistency + simulationYears + monthlyAmount;
     
     // Simula cada mês
@@ -112,11 +126,7 @@ const AutomatedInvestmentSimulator = () => {
       let makeInvestment = true;
       
       if (!isAutomated) {
-        // Se não for automatizado, aplica a taxa de consistência
-        // Usando uma fórmula determinística baseada no mês e na consistência
-        // para garantir resultados consistentes
-        const random = ((i * seed) % 100) + 1;
-        makeInvestment = random <= consistency;
+        makeInvestment = shouldInvest(i, consistency, seed);
       }
       
       if (makeInvestment) {
@@ -540,7 +550,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primaryDark,
   },
   skippedMonth: {
-    backgroundColor: '#ffcccc',
+    backgroundColor: '#ff9999',
+    borderWidth: 1,
+    borderColor: '#e74c3c',
   },
   monthText: {
     fontSize: 10,
