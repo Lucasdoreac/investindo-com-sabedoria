@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "luaraujo-livro-app",
-    "slug": "luaraujo-livro-app",
+    "name": "Investindo com Sabedoria",
+    "slug": "investindo-com-sabedoria",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,10 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "static",
+      "publicPath": "/investindo-com-sabedoria/"
     }
   }
 }
