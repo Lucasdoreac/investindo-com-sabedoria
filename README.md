@@ -92,8 +92,8 @@ O aplicativo aborda os seguintes tópicos:
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/luaraujo-livro-app.git
-   cd luaraujo-livro-app
+   git clone https://github.com/Lucasdoreac/investindo-com-sabedoria.git
+   cd investindo-com-sabedoria
    ```
 
 2. Instale as dependências:
@@ -152,4 +152,4 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para d
 
 ---
 
-Desenvolvido com 💙 por [Seu Nome]
+Desenvolvido com 💙 por Lucas Dórea Cardoso (<ludoc.dev@gmail.com>)
