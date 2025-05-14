@@ -47,7 +47,7 @@
     "react-native",
     "expo"
   ],
-  "author": "Lucas Dórea Cardoso",
+  "author": "Lucas Dórea Cardoso <ludoc.dev@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Lucasdoreac/investindo-com-sabedoria/issues"
